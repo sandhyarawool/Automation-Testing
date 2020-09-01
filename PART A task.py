@@ -9,8 +9,8 @@ browser.get("https://www.hudl.com")
 
 browser.find_element_by_xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a").click()
 
-browser.find_element_by_id("email").send_keys("rawoolsandhya97@gmail.com")
-browser.find_element_by_id("password").send_keys("hudlsandhya03")
+browser.find_element_by_id("email").send_keys("your email address")
+browser.find_element_by_id("password").send_keys("your password")
 time.sleep(5)
 
 browser.find_element_by_id("logIn").click()
