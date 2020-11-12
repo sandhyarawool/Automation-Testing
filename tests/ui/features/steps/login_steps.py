@@ -32,6 +32,25 @@ def doLogin(context):
 
 use_step_matcher("re")
 
+@when('I log in with valid or invalid email and password')
+def click_login(context, email, password):
+    login_page = LoginPage(context.browser)
+    if email == 'valid':
+        login_page.email(context.user['user'])
+    if password == 'invalid':
+        login_page.password(context.password)
+    login_page.click_login_button()
+    if login_page.is_need_help_visible():
+        login_page.click_need_help_tab()
+
+
+@when('I log in with need help')
+def click_need_help_tab(context):
+    login_page = LoginPage(context.browser)
+    login_page.click_need_help_tab()
+
+
+
 @when('I click on home Page')
 def click_home_page(context):
     home_page = HomePage(context.browser)
@@ -43,4 +62,14 @@ def check_landed_on_profile_page(context):
     home_page = HomePage(context.browser)
     assert home_page.is_page_loaded(), 'User not directed to home page after login'
 
+
+@then('I should be get an error message')
+def check_login_error_shown(context):
+    login_page = LoginPage(context.browser)
+    assert login_page.is_login_error_shown(), 'Login error was not shown'
+
     
+@then('I should see an option to reset password')
+def check_password_reset_request_confirmation_displayed(context):
+    login_help_page = LoginHelpPage(context.browser)
+    assert login_help_page.is_reset_request_confirmation_displayed(), 'Password reset request confirmation was not displayed'
